@@ -18,7 +18,7 @@ public class VentanaSintomas extends javax.swing.JDialog {
     public VentanaSintomas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setBounds(0, 0, 796, 426);
+        setBounds(0, 0, 900, 750);
         panelSintomas.setLayout(new BoxLayout(panelSintomas, BoxLayout.Y_AXIS));
         generarSintomasCheckBox();
     }
@@ -39,9 +39,12 @@ public class VentanaSintomas extends javax.swing.JDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtPosiblesEnfermedades = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
-        btnGenerarDiagnotico = new javax.swing.JButton();
+        btnGenerarPosiblesEnfermedades = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(900, 550));
+        setResizable(false);
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 255));
 
@@ -55,7 +58,7 @@ public class VentanaSintomas extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(204, 204, 204)
                 .addComponent(jLabel1)
-                .addContainerGap(210, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -65,11 +68,14 @@ public class VentanaSintomas extends javax.swing.JDialog {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
+        jPanel1.setPreferredSize(new java.awt.Dimension(800, 750));
+        jPanel1.setVerifyInputWhenFocusTarget(false);
+
         javax.swing.GroupLayout panelSintomasLayout = new javax.swing.GroupLayout(panelSintomas);
         panelSintomas.setLayout(panelSintomasLayout);
         panelSintomasLayout.setHorizontalGroup(
             panelSintomasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 301, Short.MAX_VALUE)
+            .addGap(0, 322, Short.MAX_VALUE)
         );
         panelSintomasLayout.setVerticalGroup(
             panelSintomasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,14 +125,14 @@ public class VentanaSintomas extends javax.swing.JDialog {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(89, 89, 89))
+                .addGap(119, 119, 119))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,11 +144,23 @@ public class VentanaSintomas extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        btnGenerarDiagnotico.setBackground(new java.awt.Color(204, 204, 255));
-        btnGenerarDiagnotico.setText("Generar Diagnostico");
-        btnGenerarDiagnotico.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnGenerarPosiblesEnfermedades.setBackground(new java.awt.Color(204, 204, 255));
+        btnGenerarPosiblesEnfermedades.setText("Generar Posibles Enfermedades");
+        btnGenerarPosiblesEnfermedades.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnGenerarDiagnoticoMouseClicked(evt);
+                btnGenerarPosiblesEnfermedadesMouseClicked(evt);
+            }
+        });
+
+        jButton1.setText("Ver diágnosticos");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -152,16 +170,17 @@ public class VentanaSintomas extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(43, 43, 43)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(panelSintomas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnGenerarPosiblesEnfermedades)
+                        .addGap(99, 99, 99)
+                        .addComponent(jButton1))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addComponent(panelSintomas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnGenerarDiagnotico)
-                .addGap(289, 289, 289))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,8 +194,10 @@ public class VentanaSintomas extends javax.swing.JDialog {
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnGenerarDiagnotico)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGenerarPosiblesEnfermedades)
+                    .addComponent(jButton1))
+                .addGap(0, 435, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -186,7 +207,7 @@ public class VentanaSintomas extends javax.swing.JDialog {
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -194,14 +215,14 @@ public class VentanaSintomas extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnGenerarDiagnoticoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGenerarDiagnoticoMouseClicked
+    private void btnGenerarPosiblesEnfermedadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGenerarPosiblesEnfermedadesMouseClicked
         this.txtSintomasSeleccionados.setText(null);
         this.txtPosiblesEnfermedades.setText(null);
         List<Sintomas> ss = obtenerSeleccionados();
@@ -213,7 +234,18 @@ public class VentanaSintomas extends javax.swing.JDialog {
         for (Enfermedad e : pE) {
             this.txtPosiblesEnfermedades.append(e.getNombreEnfermedad() + "\n");
         }
-    }//GEN-LAST:event_btnGenerarDiagnoticoMouseClicked
+    }//GEN-LAST:event_btnGenerarPosiblesEnfermedadesMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        VentanaDiagnostico ventanadiagnostico = new VentanaDiagnostico(null, true);
+        ventanadiagnostico.setLocationRelativeTo(null);
+        this.dispose();
+        ventanadiagnostico.setVisible(true);
+    }//GEN-LAST:event_jButton1MouseClicked
     private void generarSintomasCheckBox() {
         SintomasDAO sdao = new SintomasDAO();
         try {
@@ -275,7 +307,8 @@ public class VentanaSintomas extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnGenerarDiagnotico;
+    private javax.swing.JButton btnGenerarPosiblesEnfermedades;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
