@@ -234,7 +234,7 @@ public class VentanaSintomas extends javax.swing.JDialog {
         for (Component c : panelSintomas.getComponents()) {
             if (c instanceof JCheckBox cb) {
                 if (cb.isSelected()) {
-                    // Recuperamos el síntoma guardado dentro del checkbox
+                    // Obtenemos el sintoma guardado dentro del checkbox
                     Sintomas s = (Sintomas) cb.getClientProperty("info");
                     seleccionados.add(s);
                 }
