@@ -75,7 +75,7 @@ public class VentanaSintomas extends javax.swing.JDialog {
         panelSintomas.setLayout(panelSintomasLayout);
         panelSintomasLayout.setHorizontalGroup(
             panelSintomasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 322, Short.MAX_VALUE)
+            .addGap(0, 319, Short.MAX_VALUE)
         );
         panelSintomasLayout.setVerticalGroup(
             panelSintomasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
