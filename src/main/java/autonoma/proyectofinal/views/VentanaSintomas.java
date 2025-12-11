@@ -1,10 +1,15 @@
 package autonoma.proyectofinal.views;
 
 import autonoma.proyectofinal.models.Enfermedad;
+import autonoma.proyectofinal.models.PrologQueryExecutor;
 import autonoma.proyectofinal.models.Sintomas;
 import autonoma.proyectofinal.models.SintomasDAO;
+import java.awt.Component;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 
@@ -199,30 +204,76 @@ public class VentanaSintomas extends javax.swing.JDialog {
     private void btnGenerarDiagnoticoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGenerarDiagnoticoMouseClicked
         this.txtSintomasSeleccionados.setText(null);
         this.txtPosiblesEnfermedades.setText(null);
-//        List<Sintomas> ss = obtenerSeleccionados();
-//        for (Sintomas s : ss) {
-//            this.txtSintomasSeleccionados.append(s.getSintoma_id() + ". " + s.getNombre_sintoma() + "\n");
-//        }
+        List<Sintomas> ss = obtenerSeleccionados();
+        for (Sintomas s : ss) {
+            this.txtSintomasSeleccionados.append(s.getSintoma_id() + ". " + s.getNombre_sintoma() + "\n");
+        }
 
-//        List<Enfermedad> pE = pEnfermedades(ss);
-//        for (Enfermedad e : pE) {
-//            this.txtPosiblesEnfermedades.append(e.getNombreEnfermedad() + "\n");
-//        }
+        List<Enfermedad> pE = pEnfermedades(ss);
+        for (Enfermedad e : pE) {
+            this.txtPosiblesEnfermedades.append(e.getNombreEnfermedad() + "\n");
+        }
     }//GEN-LAST:event_btnGenerarDiagnoticoMouseClicked
-    private void generarSintomasCheckBox(){
+    private void generarSintomasCheckBox() {
         SintomasDAO sdao = new SintomasDAO();
         try {
-            List<Sintomas> sintomas = sdao.obtenerSintomas();
-            for (Sintomas s : sintomas) {
-                String txt = s.getSintoma_id()+ ". " + s.getNombre_sintoma();
-                JCheckBox cb = new JCheckBox(txt);
-                cb.putClientProperty("data", s);
+            List<Sintomas> lista = sdao.obtenerSintomas();
+            for (Sintomas s : lista) {
+                JCheckBox cb = new JCheckBox(s.getSintoma_id() + ". " + s.getNombre_sintoma());
+                // Guardamos el síntoma dentro del checkbox para recuperarlo después
+                cb.putClientProperty("info", s);
                 panelSintomas.add(cb);
             }
-        } catch (SQLException ex) {
-            System.getLogger(SintomasDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        } catch (SQLException e) {
+            System.out.println("Error al cargar síntomas: " + e.getMessage());
         }
     }
+
+    private List<Sintomas> obtenerSeleccionados() {
+        List<Sintomas> seleccionados = new ArrayList<>();
+        for (Component c : panelSintomas.getComponents()) {
+            if (c instanceof JCheckBox cb) {
+                if (cb.isSelected()) {
+                    // Recuperamos el síntoma guardado dentro del checkbox
+                    Sintomas s = (Sintomas) cb.getClientProperty("info");
+                    seleccionados.add(s);
+                }
+            }
+        }
+        return seleccionados;
+    }
+
+    private List<Enfermedad> pEnfermedades(List<Sintomas> s) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (int i = 0; i < s.size(); i++) {
+            Sintomas si = s.get(i);
+            sb.append(si.getNombre_sintoma());
+            if (i < s.size() - 1) {
+                sb.append(",");
+            }
+        }
+        sb.append("]");
+
+        List<Enfermedad> Eexacta = PrologQueryExecutor.getSolutions("coincide_sintomas(" + sb.toString() + ",Nombre)");
+        
+        if (!Eexacta.isEmpty()) {
+            return Eexacta;
+        }
+        
+        List<Enfermedad> posiblesEnf = PrologQueryExecutor.getSolutions("diagnostico(" + sb.toString() + ",Nombre)");
+            
+        Set<String> eSinRepetir = new HashSet<>();
+        List<Enfermedad> eFinal = new ArrayList<>();
+        for (Enfermedad e : posiblesEnf) {
+            if (eSinRepetir.add(e.getNombreEnfermedad())) {
+                eFinal.add(e);
+            }
+        }
+        return eFinal;
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGenerarDiagnotico;
     private javax.swing.JLabel jLabel1;
