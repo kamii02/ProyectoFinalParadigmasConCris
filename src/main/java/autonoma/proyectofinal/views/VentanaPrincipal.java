@@ -1,6 +1,6 @@
 package autonoma.proyectofinal.views;
 
-import autonoma.proyectofinal.models.Paciente;
+import autonoma.proyectofinal.models.PacienteConsulta;
 import autonoma.proyectofinal.models.PacienteDAO;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -156,7 +156,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel7.setText("¿Ya se encuentra registrado?");
 
-        jButton2.setText("¡Seleccionar paciente!");
+        jButton2.setText("¡Generar Diagnostico!");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton2MouseClicked(evt);
