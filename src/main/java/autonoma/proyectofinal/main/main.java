@@ -27,5 +27,9 @@ public static void main(String[] args) throws SQLException {
         VentanaPrincipal ventanaprincipal = new VentanaPrincipal();
         ventanaprincipal.setVisible(true);
         ventanaprincipal.setLocationRelativeTo(null);
+        
+        // sintomas -> varchar de los sintomas de la persona separado por coma
+        // enfermedades -> varchar de las enfermedades que sacó prolog de la persona
+        // ingrese el id para generar el reporte
     }
 }
