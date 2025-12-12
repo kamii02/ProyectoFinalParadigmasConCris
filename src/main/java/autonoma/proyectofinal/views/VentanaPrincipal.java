@@ -271,10 +271,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             PacienteDAO pacienteDAO = new PacienteDAO();
             if(pacienteDAO.agregarPaciente(n,a,edad)){
                 JOptionPane.showMessageDialog(this, "¡Se Agregó el paciente a la base de datos!");
-                VentanaSintomas ventanasintomas = new VentanaSintomas(null, true);
-                ventanasintomas.setLocationRelativeTo(null);
-                this.dispose();
-                ventanasintomas.setVisible(true);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "¡Error al intentar agregar al paciente en la base de datos :)" + e.getMessage() + "!");

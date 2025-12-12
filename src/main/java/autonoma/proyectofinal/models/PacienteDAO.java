@@ -33,5 +33,26 @@ public class PacienteDAO {
             }
         }
     }
+    
+    public int obtenerIdPaciente(String N) throws SQLException {
+        String sql = "SELECT paciente_id FROM pacientes WHERE nombre_paciente = ?";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, N);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("paciente_id");
+            }
+            return -1;
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener ID del paciente: " + e.getMessage());
+            return -1;
+        }
+    }
 
 }
