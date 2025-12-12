@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 public class EnfermedadDAO {
+
     private Connection conn;   // <–– the connection stays here as an attribute
 
     public EnfermedadDAO() {
@@ -37,15 +38,15 @@ public class EnfermedadDAO {
         } finally {
             if (rs != null) {
                 try {
-                    rs.close(); 
+                    rs.close();
                 } catch (SQLException ignored) {
                     System.out.println("Error closing result set");
                 }
             }
-                
-            if (ps != null){
+
+            if (ps != null) {
                 try {
-                    ps.close(); 
+                    ps.close();
                 } catch (SQLException ignored) {
                     System.out.println("Error closing prepared statement");
                 }
@@ -54,38 +55,59 @@ public class EnfermedadDAO {
 
         return enfermedades;
     }
-    
-    
-    private List<Enfermedad> mapearEnfermedadDAO(ResultSet rs){
+
+    private List<Enfermedad> mapearEnfermedadDAO(ResultSet rs) {
         List<Enfermedad> enfermedades = new ArrayList<>();
         Set<String> enfermedadesSinDuplicados = new HashSet<>();
-        
+
         try {
             while (rs.next()) {
-                if(!enfermedadesSinDuplicados.contains(rs.getString("nombre_enfermedad"))){
+                if (!enfermedadesSinDuplicados.contains(rs.getString("nombre_enfermedad"))) {
                     enfermedadesSinDuplicados.add(rs.getString("nombre_enfermedad"));
                     enfermedadesSinDuplicados.add(rs.getString("nombre_categoria"));
                     enfermedadesSinDuplicados.add(rs.getString("recomendacion_basica"));
                     Enfermedad e = new Enfermedad();
-                    
+
                     e.setNombreEnfermedad(rs.getString("nombre_enfermedad"));
                     e.getListaSintomas().add(rs.getString("nombre_sintoma"));
                     e.setNombreCategoria(rs.getString("nombre_categoria"));
                     e.setRecomendacionBasica(rs.getString("recomendacion_basica"));
                     enfermedades.add(e);
-                }else{
-                    for(int  i=0; i<enfermedades.size(); i++){
-                        if(enfermedades.get(i).getNombreEnfermedad().equals(rs.getString("nombre_enfermedad"))){
+                } else {
+                    for (int i = 0; i < enfermedades.size(); i++) {
+                        if (enfermedades.get(i).getNombreEnfermedad().equals(rs.getString("nombre_enfermedad"))) {
                             enfermedades.get(i).getListaSintomas().add(rs.getString("nombre_sintoma"));
                             break;
                         }
                     }
                 }
-                
+
             }
         } catch (SQLException ex) {
             System.getLogger(EnfermedadDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
         return enfermedades;
+    }
+
+    public Boolean agregarEnfermedad(String NE, String RB, int CI) throws SQLException {
+        String sql = "INSERT INTO enfermedades (nombre_enfermedad, recomendacion_basica, cat_categoria_id) VALUES (? , ?, ?)";
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, NE);
+            ps.setString(2, RB);
+            ps.setInt(3, CI);
+            int f = ps.executeUpdate();
+
+            return f > 0;
+        } finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ignored) {
+                    System.out.println("Error clossing Prepared Statement");
+                }
+            }
+        }
     }
 }
