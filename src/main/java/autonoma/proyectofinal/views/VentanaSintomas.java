@@ -19,6 +19,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 
 public class VentanaSintomas extends javax.swing.JDialog {
+
     private Enfermedad enfermedadDiagnosticada;
     private Enfermedad enfermedadProlog;
     private List<Sintomas> ss;
@@ -26,7 +27,7 @@ public class VentanaSintomas extends javax.swing.JDialog {
     public VentanaSintomas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         panelSintomas.setLayout(new BoxLayout(panelSintomas, BoxLayout.Y_AXIS));
         generarSintomasCheckBox();
     }
@@ -54,6 +55,7 @@ public class VentanaSintomas extends javax.swing.JDialog {
         txtId = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        csv = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -152,6 +154,7 @@ public class VentanaSintomas extends javax.swing.JDialog {
             }
         });
 
+        btnCrearDiagnostico.setBackground(new java.awt.Color(204, 204, 255));
         btnCrearDiagnostico.setText("Crear Diagnostico");
         btnCrearDiagnostico.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -180,10 +183,19 @@ public class VentanaSintomas extends javax.swing.JDialog {
 
         jLabel5.setText("Id");
 
+        jButton1.setBackground(new java.awt.Color(204, 204, 255));
         jButton1.setText("Ver tabla disgnosticos");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
+            }
+        });
+
+        csv.setBackground(new java.awt.Color(204, 204, 255));
+        csv.setText("Exportar CSV");
+        csv.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                csvMouseClicked(evt);
             }
         });
 
@@ -211,15 +223,15 @@ public class VentanaSintomas extends javax.swing.JDialog {
                         .addComponent(panelSintomas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addComponent(btnGenerarPosiblesEnfermedades)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnGenerarPosiblesEnfermedades)
+                            .addComponent(jButton1))
                         .addGap(38, 38, 38)
-                        .addComponent(btnCrearDiagnostico)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnCrearDiagnostico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(csv))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,7 +256,9 @@ public class VentanaSintomas extends javax.swing.JDialog {
                     .addComponent(btnGenerarPosiblesEnfermedades)
                     .addComponent(btnCrearDiagnostico))
                 .addGap(27, 27, 27)
-                .addComponent(jButton1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(csv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 315, Short.MAX_VALUE))
         );
 
@@ -297,19 +311,18 @@ public class VentanaSintomas extends javax.swing.JDialog {
         try {
             PacienteDAO pd = new PacienteDAO();
             int id = pd.obtenerIdPaciente(nombre);
-            
-            
+
             this.txtId.setText(String.valueOf(id));
-           
+
         } catch (SQLException e) {
-            System.getLogger(PacienteDAO.class.getName()).log(System.Logger.Level.ERROR,(String) null, e);
+            System.getLogger(PacienteDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, e);
         }
         List<Enfermedad> posiblesEnfermedades = pEnfermedades(ss);
         this.enfermedadDiagnosticada = enfermedadMasProbable(posiblesEnfermedades);
         System.out.println(enfermedadDiagnosticada.getNombreEnfermedad());
-        this.enfermedadProlog = PrologQueryExecutor.getAtomosEnfermedad("enfermedad("+enfermedadDiagnosticada.getNombreEnfermedad()+",sintomas(Sintomas),categoria(Categoria),recomendaciones(Recomendaciones))");
-        this.txtPosiblesEnfermedades.setText("Enfermedad  ,  Categoria  ,  Recomendaciones"+"\n"+"\n");
-        this.txtPosiblesEnfermedades.append(enfermedadDiagnosticada.getNombreEnfermedad()+","+enfermedadProlog.getNombreCategoria()+","+enfermedadProlog.getRecomendacionBasica());
+        this.enfermedadProlog = PrologQueryExecutor.getAtomosEnfermedad("enfermedad(" + enfermedadDiagnosticada.getNombreEnfermedad() + ",sintomas(Sintomas),categoria(Categoria),recomendaciones(Recomendaciones))");
+        this.txtPosiblesEnfermedades.setText("Enfermedad  ,  Categoria  ,  Recomendaciones" + "\n" + "\n");
+        this.txtPosiblesEnfermedades.append(enfermedadDiagnosticada.getNombreEnfermedad() + "," + enfermedadProlog.getNombreCategoria() + "," + enfermedadProlog.getRecomendacionBasica());
     }//GEN-LAST:event_btnGenerarPosiblesEnfermedadesMouseClicked
 
     private void btnCrearDiagnosticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearDiagnosticoActionPerformed
@@ -318,35 +331,35 @@ public class VentanaSintomas extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCrearDiagnosticoActionPerformed
 
     private void btnCrearDiagnosticoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearDiagnosticoMouseClicked
- // Obtener el ID del paciente
-    String idTexto = txtId.getText();
-    if (idTexto.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Primero genera las posibles enfermedades");
-        return;
-    }
-    
-    int idPaciente = Integer.parseInt(idTexto);
-    String recomendacion = enfermedadProlog.getRecomendacionBasica();
-    String enfermedad = enfermedadDiagnosticada.getNombreEnfermedad();
-    
-    StringBuilder sb = new StringBuilder();
-    sb.append("[");
-    for(int i = 0; i < this.ss.size(); i++){
-        sb.append(this.ss.get(i).getNombre_sintoma());
-        if(i < this.ss.size()-1){
-            sb.append(",");
+        // Obtener el ID del paciente
+        String idTexto = txtId.getText();
+        if (idTexto.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Primero genera las posibles enfermedades");
+            return;
         }
-        sb.append("]");
-    }
-    String sintomas = sb.toString();
-    
+
+        int idPaciente = Integer.parseInt(idTexto);
+        String recomendacion = enfermedadProlog.getRecomendacionBasica();
+        String enfermedad = enfermedadDiagnosticada.getNombreEnfermedad();
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (int i = 0; i < this.ss.size(); i++) {
+            sb.append(this.ss.get(i).getNombre_sintoma());
+            if (i < this.ss.size() - 1) {
+                sb.append(",");
+            }
+            sb.append("]");
+        }
+        String sintomas = sb.toString();
+
         try {
             DiagnosticoDAO diagDAO = new DiagnosticoDAO();
-            if(diagDAO.insertarDiagnosticoCompleto(idPaciente, sintomas, enfermedad, recomendacion)){
+            if (diagDAO.insertarDiagnosticoCompleto(idPaciente, sintomas, enfermedad, recomendacion)) {
                 JOptionPane.showMessageDialog(this, "Diagnostico agregado con exito");
             }
-        } catch (SQLException e){
-            JOptionPane.showMessageDialog(this, "Hubo un error al agregar el diagnostico"+e.getMessage());
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Hubo un error al agregar el diagnostico" + e.getMessage());
         }
     }//GEN-LAST:event_btnCrearDiagnosticoMouseClicked
 
@@ -368,6 +381,11 @@ public class VentanaSintomas extends javax.swing.JDialog {
         this.dispose();
         ventanadiagnostico.setVisible(true);
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void csvMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_csvMouseClicked
+
+
+    }//GEN-LAST:event_csvMouseClicked
     private void generarSintomasCheckBox() {
         SintomasDAO sdao = new SintomasDAO();
         try {
@@ -397,7 +415,6 @@ public class VentanaSintomas extends javax.swing.JDialog {
         return seleccionados;
     }
 
-    
     private List<Enfermedad> pEnfermedades(List<Sintomas> s) {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
@@ -420,7 +437,7 @@ public class VentanaSintomas extends javax.swing.JDialog {
 
         return posiblesEnf;
     }
-    
+
     private Enfermedad enfermedadMasProbable(List<Enfermedad> lista) {
 
         Map<String, Integer> contador = new HashMap<>();
@@ -452,6 +469,7 @@ public class VentanaSintomas extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrearDiagnostico;
     private javax.swing.JButton btnGenerarPosiblesEnfermedades;
+    private javax.swing.JTextField csv;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
