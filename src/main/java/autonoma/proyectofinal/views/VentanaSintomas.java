@@ -402,13 +402,13 @@ public class VentanaSintomas extends javax.swing.JDialog {
         String enfermedad = enfermedadDiagnosticada.getNombreEnfermedad();
 
         StringBuilder sb = new StringBuilder();
-        sb.append("[");
+        sb.append("");
         for (int i = 0; i < this.ss.size(); i++) {
             sb.append(this.ss.get(i).getNombre_sintoma());
             if (i < this.ss.size() - 1) {
                 sb.append(",");
             }
-            sb.append("]");
+            sb.append("");
         }
         String sintomas = sb.toString();
 
