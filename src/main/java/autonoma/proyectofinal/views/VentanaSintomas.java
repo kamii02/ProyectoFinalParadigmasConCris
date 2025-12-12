@@ -14,6 +14,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
@@ -449,10 +451,15 @@ public class VentanaSintomas extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAgregarEnfermedadMouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        VentanaCSV ventanaCSV = new VentanaCSV(null, true);
-        ventanaCSV.setLocationRelativeTo(null);
-        this.dispose();
-        ventanaCSV.setVisible(true);
+        VentanaCSV ventanaCSV;
+        try {
+            ventanaCSV = new VentanaCSV(null, true);
+            ventanaCSV.setLocationRelativeTo(null);
+            this.dispose();
+            ventanaCSV.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(VentanaSintomas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
