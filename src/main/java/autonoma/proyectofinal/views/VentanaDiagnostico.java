@@ -104,6 +104,7 @@ public class VentanaDiagnostico extends javax.swing.JDialog {
             jTable1.getColumnModel().getColumn(3).setPreferredWidth(250);
         }
 
+        jButton1.setBackground(new java.awt.Color(204, 204, 255));
         jButton1.setText("¡Regresar!");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,10 +154,10 @@ public class VentanaDiagnostico extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        VentanaPrincipal ventanaprincipal = new VentanaPrincipal();
-        ventanaprincipal.setLocationRelativeTo(null);
+        VentanaSintomas ventanaSintomas = new VentanaSintomas(null, true);
+        ventanaSintomas.setLocationRelativeTo(null);
         this.dispose();
-        ventanaprincipal.setVisible(true);
+        ventanaSintomas.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
