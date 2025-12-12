@@ -51,6 +51,45 @@ public class PrologQueryExecutor {
         return lista;
     }
     
+    public static Enfermedad getAtomosEnfermedad(String rule) {
+        Enfermedad e = new Enfermedad();
+        Query q = new Query(rule);
+        while (q.hasMoreSolutions()) {
+            Map<String, Term> solution = q.nextSolution(); // nextSolution(); -> Sgte solución de una consulta en Prolog
+            
+            String nombre = null;
+            Term nombreT = solution.get("Nombre");
+            if (nombreT != null) {
+                nombre = nombreT.toString();
+            }
+
+            List<String> sintomas = null;
+            Term sintomasT = solution.get("Sintomas");
+            if (sintomasT != null) {
+                sintomas = prologListToJavaList(sintomasT);
+            }
+            
+            String categoria = null;
+            Term categoriaT = solution.get("Categoria");
+            if(categoriaT != null){
+                categoria = categoriaT.toString();
+            }
+
+            String recomendaciones = null;
+            Term recomendacionesT = solution.get("Recomendaciones");
+            if (recomendacionesT != null){
+                recomendaciones = recomendacionesT.toString();
+            }
+            e.setNombreEnfermedad(nombre);
+            e.setNombreCategoria(categoria);
+            e.setListaSintomas(sintomas);
+            e.setRecomendacionBasica(recomendaciones);
+        }
+
+        q.close();
+        return e;
+    }
+    
     private static List<String> prologListToJavaList(Term t){
         List <String> lista = new ArrayList();
         Term list = t;

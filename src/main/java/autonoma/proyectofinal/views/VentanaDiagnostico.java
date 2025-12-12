@@ -1,11 +1,50 @@
 package autonoma.proyectofinal.views;
 
+import autonoma.proyectofinal.models.Diagnostico;
+import autonoma.proyectofinal.models.DiagnosticoDAO;
+import java.awt.Color;
+import java.sql.SQLException;
+import java.util.List;
+import javax.swing.border.EtchedBorder;
+import javax.swing.table.DefaultTableModel;
+
 public class VentanaDiagnostico extends javax.swing.JDialog {
 
     public VentanaDiagnostico(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setBounds(0, 0, 796, 426);
+        this.setSize(800, 600);
+        cargarDatos();
+    }
+    
+    private void cargarDatos() {
+        DiagnosticoDAO dao = new DiagnosticoDAO();
+        try {
+            List<Diagnostico> diagnosticos = dao.buscarTodos();
+
+            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+
+            modelo.setRowCount(0);
+
+            for (Diagnostico d : diagnosticos) {
+                Object[] fila = new Object[4];
+                fila[0] = d.getNombre_paciente();
+                fila[1] = d.getEnfermedades();
+                fila[2] = d.getSintomas();
+                fila[3] = d.getRecomendaciones();
+                modelo.addRow(fila);
+            }
+            
+            jTable1.setBorder(new EtchedBorder(EtchedBorder.RAISED));
+            jTable1.setGridColor(Color.BLUE);
+            jTable1.setShowHorizontalLines(true);
+            jTable1.setShowVerticalLines(true);
+
+
+        } catch (SQLException e) {
+            System.out.println("Error al cargar los diagnósticos: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
     
     @SuppressWarnings("unchecked")
@@ -14,15 +53,14 @@ public class VentanaDiagnostico extends javax.swing.JDialog {
 
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(796, 426));
-        setResizable(false);
+        setSize(new java.awt.Dimension(800, 520));
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel3.setPreferredSize(new java.awt.Dimension(800, 110));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("¡Sistema experto de diágnosticos!");
@@ -32,63 +70,50 @@ public class VentanaDiagnostico extends javax.swing.JDialog {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(204, 204, 204)
+                .addGap(207, 207, 207)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(211, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(10, 10, 10)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Nombre del paciente", "Nombre enfermedad", "Sintomas", "Recomendaciones"
+                "Nombre del paciente", "Enfermedades", "Síntomas", "Recomendaciones"
             }
         ));
+        jTable1.setInheritsPopupMenu(true);
+        jTable1.setName(""); // NOI18N
+        jTable1.setPreferredSize(new java.awt.Dimension(800, 600));
         jScrollPane1.setViewportView(jTable1);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(101, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(95, 95, 95))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
-        );
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(150);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(150);
+            jTable1.getColumnModel().getColumn(2).setPreferredWidth(250);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(250);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -96,7 +121,6 @@ public class VentanaDiagnostico extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

@@ -82,21 +82,23 @@ public class DiagnosticoDAO {
 
         return enfermedadIds;
     }
-
-    // Insertar un registro de diagnóstico
-    public boolean insertarDiagnostico(Integer pacienteId, Integer sintomaId, Integer enfermedadId) throws SQLException {
-        String sql = "INSERT INTO Diagnostico (pac_paciente_id, sin_sintoma_id, enf_enfermedad_id) VALUES (?, ?, ?)";
+    public boolean insertarDiagnosticoCompleto(int pacienteId, String sintomas, String enfermedades, String recomendaciones) throws SQLException {
+        String sql = "INSERT INTO diagnosticos (pac_paciente_id, sintomas, enfermedades, recomendaciones) VALUES (?, ?, ?, ?)";
         PreparedStatement ps = null;
 
         try {
             ps = conn.prepareStatement(sql);
             ps.setInt(1, pacienteId);
-            ps.setInt(2, sintomaId);
-            ps.setInt(3, enfermedadId);
+            ps.setString(2, sintomas);
+            ps.setString(3, enfermedades);
+            ps.setString(4, recomendaciones);
 
             int filasAfectadas = ps.executeUpdate();
             return filasAfectadas > 0;
 
+        } catch (SQLException e) {
+            System.out.println("Error al insertar diagnóstico: " + e.getMessage());
+            return false;
         } finally {
             if (ps != null) {
                 try {
@@ -105,5 +107,53 @@ public class DiagnosticoDAO {
                 }
             }
         }
+    }
+
+    public List<Diagnostico> buscarTodos() throws SQLException {
+        String sql = "select pac.nombre_paciente as 'nombre_paciente', dia.sintomas as 'sintomas', dia.enfermedades as 'enfermedades', dia.recomendaciones as 'recomendaciones' from diagnosticos as dia join pacientes as pac on pac.paciente_id = dia.pac_paciente_id";
+        List<Diagnostico> diagnosticos;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            diagnosticos = mapearDiagnosticoDAO(rs);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ignored) {
+                    System.out.println("Error closing result set");
+                }
+            }
+
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ignored) {
+                    System.out.println("Error closing prepared statement");
+                }
+            }
+        }
+
+        return diagnosticos;
+    }
+
+    private List<Diagnostico> mapearDiagnosticoDAO(ResultSet rs){
+        List<Diagnostico> diagnosticos = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                    Diagnostico d = new Diagnostico();
+                    d.setNombre_paciente(rs.getString("nombre_paciente"));
+                    d.setSintomas(rs.getString("sintomas"));
+                    d.setEnfermedades(rs.getString("enfermedades"));
+                    d.setRecomendaciones(rs.getString("recomendaciones"));
+                    diagnosticos.add(d);
+                }
+            }
+        catch (SQLException ex) {
+            System.getLogger(EnfermedadDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+        return diagnosticos;
     }
 }
