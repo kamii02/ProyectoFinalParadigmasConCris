@@ -15,6 +15,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnAgregarEnfermedad = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -36,6 +38,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        btnAgregarEnfermedad1 = new javax.swing.JButton();
+        btnAgregarSintoma = new javax.swing.JButton();
+        btnAgregarSintomaEnfermedad = new javax.swing.JButton();
+
+        btnAgregarEnfermedad.setBackground(new java.awt.Color(204, 204, 255));
+        btnAgregarEnfermedad.setText("Agregar nueva enfermedad");
+        btnAgregarEnfermedad.setActionCommand("");
+        btnAgregarEnfermedad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregarEnfermedadMouseClicked(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -55,7 +69,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(131, 131, 131)
                 .addComponent(jLabel1)
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,6 +214,37 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnAgregarEnfermedad1.setBackground(new java.awt.Color(204, 204, 255));
+        btnAgregarEnfermedad1.setText("Agregar nueva enfermedad");
+        btnAgregarEnfermedad1.setActionCommand("");
+        btnAgregarEnfermedad1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregarEnfermedad1MouseClicked(evt);
+            }
+        });
+
+        btnAgregarSintoma.setBackground(new java.awt.Color(204, 204, 255));
+        btnAgregarSintoma.setText("Agregar nuevo sintoma");
+        btnAgregarSintoma.setActionCommand("");
+        btnAgregarSintoma.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregarSintomaMouseClicked(evt);
+            }
+        });
+        btnAgregarSintoma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarSintomaActionPerformed(evt);
+            }
+        });
+
+        btnAgregarSintomaEnfermedad.setBackground(new java.awt.Color(204, 204, 255));
+        btnAgregarSintomaEnfermedad.setText("Agregar Sintoma a Enfermedad");
+        btnAgregarSintomaEnfermedad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregarSintomaEnfermedadMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -218,17 +263,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         .addGap(71, 71, 71)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(60, 60, 60)
-                                .addComponent(jLabel11))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(29, 29, 29)
-                                .addComponent(jLabel12))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(44, 44, 44)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel7))))
-                .addGap(70, 70, 70))
+                            .addComponent(jLabel7)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnAgregarEnfermedad1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAgregarSintoma))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addComponent(btnAgregarSintomaEnfermedad))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(120, 120, 120)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addComponent(jLabel11))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addComponent(jLabel12)))
+                .addContainerGap(103, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,14 +294,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
-                .addGap(60, 60, 60)
+                .addGap(23, 23, 23)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(4, 4, 4)
                 .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3)
+                .addGap(30, 30, 30)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregarEnfermedad1)
+                    .addComponent(btnAgregarSintoma))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAgregarSintomaEnfermedad)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -256,11 +315,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 861, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -334,7 +393,37 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void btnAgregarEnfermedadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarEnfermedadMouseClicked
+
+    }//GEN-LAST:event_btnAgregarEnfermedadMouseClicked
+
+    private void btnAgregarEnfermedad1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarEnfermedad1MouseClicked
+        VentanaAgregarEnfermedad ventanaAgregarEnfermedad = new VentanaAgregarEnfermedad();
+        ventanaAgregarEnfermedad.setLocationRelativeTo(null);
+        this.dispose();
+        ventanaAgregarEnfermedad.setVisible(true);
+    }//GEN-LAST:event_btnAgregarEnfermedad1MouseClicked
+
+    private void btnAgregarSintomaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarSintomaMouseClicked
+        VentanaAgregarSintoma ventanaAgregarSintoma = new VentanaAgregarSintoma();
+        ventanaAgregarSintoma.setLocationRelativeTo(null);
+        this.dispose();
+        ventanaAgregarSintoma.setVisible(true);
+    }//GEN-LAST:event_btnAgregarSintomaMouseClicked
+
+    private void btnAgregarSintomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarSintomaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarSintomaActionPerformed
+
+    private void btnAgregarSintomaEnfermedadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarSintomaEnfermedadMouseClicked
+        
+    }//GEN-LAST:event_btnAgregarSintomaEnfermedadMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarEnfermedad;
+    private javax.swing.JButton btnAgregarEnfermedad1;
+    private javax.swing.JButton btnAgregarSintoma;
+    private javax.swing.JButton btnAgregarSintomaEnfermedad;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -353,6 +442,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtEdad;
     private javax.swing.JTextField txtNombre;

@@ -40,7 +40,6 @@ public class VentanaSintomas extends javax.swing.JDialog {
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        btnAgregarEnfermedad = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         btnGenerarPosiblesEnfermedades = new javax.swing.JButton();
         btnCrearDiagnostico = new javax.swing.JButton();
@@ -106,7 +105,7 @@ public class VentanaSintomas extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(207, 207, 207)
                 .addComponent(jLabel1)
-                .addContainerGap(207, Short.MAX_VALUE))
+                .addContainerGap(211, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
@@ -118,15 +117,6 @@ public class VentanaSintomas extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        btnAgregarEnfermedad.setBackground(new java.awt.Color(204, 204, 255));
-        btnAgregarEnfermedad.setText("Agregar nueva enfermedad");
-        btnAgregarEnfermedad.setActionCommand("");
-        btnAgregarEnfermedad.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAgregarEnfermedadMouseClicked(evt);
-            }
-        });
 
         jButton1.setBackground(new java.awt.Color(204, 204, 255));
         jButton1.setText("Ver tabla diágnosticos");
@@ -289,7 +279,6 @@ public class VentanaSintomas extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton1)
-                                    .addComponent(btnAgregarEnfermedad)
                                     .addComponent(jLabel8)
                                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -345,15 +334,13 @@ public class VentanaSintomas extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
-                        .addComponent(btnAgregarEnfermedad)
-                        .addGap(18, 18, 18)
                         .addComponent(jLabel8)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2))
                     .addComponent(panelSintomas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addGap(44, 44, 44)
                 .addComponent(jButton3)
-                .addGap(22, 22, 22))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -440,13 +427,6 @@ public class VentanaSintomas extends javax.swing.JDialog {
         this.dispose();
         ventanadiagnostico.setVisible(true);
     }//GEN-LAST:event_jButton1MouseClicked
-
-    private void btnAgregarEnfermedadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarEnfermedadMouseClicked
-        VentanaAgregarEnfermedad ventanaAgregarEnfermedad = new VentanaAgregarEnfermedad();
-        ventanaAgregarEnfermedad.setLocationRelativeTo(null);
-        this.dispose();
-        ventanaAgregarEnfermedad.setVisible(true);
-    }//GEN-LAST:event_btnAgregarEnfermedadMouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         VentanaCSV ventanaCSV = new VentanaCSV(null, true);
@@ -541,7 +521,6 @@ public class VentanaSintomas extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregarEnfermedad;
     private javax.swing.JButton btnCrearDiagnostico;
     private javax.swing.JButton btnGenerarPosiblesEnfermedades;
     private javax.swing.JButton jButton1;

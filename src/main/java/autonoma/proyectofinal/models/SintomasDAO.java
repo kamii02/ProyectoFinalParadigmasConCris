@@ -16,12 +16,13 @@ import java.util.List;
  * @author camil
  */
 public class SintomasDAO {
+
     private Connection conn;
 
     public SintomasDAO() {
         this.conn = MySQLConnection.getInstance().getConnection();
     }
-    
+
     public List<Sintomas> obtenerSintomas() throws SQLException {
         String sql = "SELECT * FROM sintomas";
         List<Sintomas> sintomas;
@@ -65,5 +66,25 @@ public class SintomasDAO {
             System.getLogger(SintomasDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
         return sintomas;
+    }
+
+    public Boolean agregarSintoma(String NS) throws SQLException {
+        String sql = "INSERT INTO sintomas (nombre_sintoma) VALUES (?)";
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, NS);
+            int f = ps.executeUpdate();
+
+            return f > 0;
+        } finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ignored) {
+                    System.out.println("Error clossing Prepared Statement");
+                }
+            }
+        }
     }
 }
