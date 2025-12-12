@@ -15,95 +15,59 @@ public class DiagnosticoDAO {
         this.conn = MySQLConnection.getInstance().getConnection();
     }
 
-    // Obtener el ID de un síntoma por su nombre
-    public Integer obtenerIdSintoma(String nombreSintoma) throws SQLException {
-        String sql = "SELECT sintoma_id FROM Sintomas WHERE nombre_sintoma = ?";
+    public List<Diagnostico> buscarTodos() throws SQLException {
+        String sql = """
+                     select
+                     pac.nombre_paciente as 'nombre_paciente',
+                     dia.sintomas as 'sintomas',
+                     dia.enfermedades as 'enfermedades',
+                     dia.recomendaciones as 'recomendaciones'
+                     from diagnosticos as dia
+                     join pacientes as pac on pac.paciente_id = dia.pac_paciente_id;
+                     """;
+        List<Diagnostico> diagnosticos;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        Integer sintomaId = null;
-
         try {
             ps = conn.prepareStatement(sql);
-            ps.setString(1, nombreSintoma);
             rs = ps.executeQuery();
-
-            if (rs.next()) {
-                sintomaId = rs.getInt("sintoma_id");
-            }
-
+            diagnosticos = mapearDiagnosticoDAO(rs);
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException ignored) {
+                    System.out.println("Error closing result set");
                 }
             }
+
             if (ps != null) {
                 try {
                     ps.close();
                 } catch (SQLException ignored) {
+                    System.out.println("Error closing prepared statement");
                 }
             }
         }
 
-        return sintomaId;
+        return diagnosticos;
     }
 
-    // Buscar enfermedades que tengan un síntoma específico
-    public List<Integer> buscarEnfermedadesPorSintoma(Integer sintomaId) throws SQLException {
-        String sql = "SELECT enf_enfermedad_id FROM Sintomas_Enfermedades WHERE sin_sintoma_id = ?";
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        List<Integer> enfermedadIds = new ArrayList<>();
-
+    private List<Diagnostico> mapearDiagnosticoDAO(ResultSet rs){
+        List<Diagnostico> diagnosticos = new ArrayList<>();
         try {
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1, sintomaId);
-            rs = ps.executeQuery();
-
             while (rs.next()) {
-                enfermedadIds.add(rs.getInt("enf_enfermedad_id"));
-            }
-
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException ignored) {
+                    Diagnostico d = new Diagnostico();
+                    d.setNombre_paciente(rs.getString("nombre_paciente"));
+                    d.setSintomas(rs.getString("sintomas"));
+                    d.setEnfermedades(rs.getString("enfermedades"));
+                    d.setRecomendaciones(rs.getString("recomendaciones"));
+                    diagnosticos.add(d);
                 }
             }
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException ignored) {
-                }
-            }
+        catch (SQLException ex) {
+            System.getLogger(EnfermedadDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
-
-        return enfermedadIds;
-    }
-
-    // Insertar un registro de diagnóstico
-    public boolean insertarDiagnostico(Integer pacienteId, Integer sintomaId, Integer enfermedadId) throws SQLException {
-        String sql = "INSERT INTO Diagnostico (pac_paciente_id, sin_sintoma_id, enf_enfermedad_id) VALUES (?, ?, ?)";
-        PreparedStatement ps = null;
-
-        try {
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1, pacienteId);
-            ps.setInt(2, sintomaId);
-            ps.setInt(3, enfermedadId);
-
-            int filasAfectadas = ps.executeUpdate();
-            return filasAfectadas > 0;
-
-        } finally {
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch (SQLException ignored) {
-                }
-            }
-        }
+        return diagnosticos;
     }
 }

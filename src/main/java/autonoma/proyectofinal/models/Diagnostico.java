@@ -1,61 +1,45 @@
 package autonoma.proyectofinal.models;
 
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 public class Diagnostico {
+    
+    private String nombre_paciente;
+    private String enfermedades;
+    private String sintomas;
+    private String recomendaciones;
 
     public Diagnostico() {
+        
     }
 
-    public boolean insertarDiagnosticoBD(Integer pacienteId, List<String> sintomas) throws SQLException {
-        DiagnosticoDAO diagnosticoDAO = new DiagnosticoDAO();
-
-        // Mapa para guardar: nombre_sintoma -> sintoma_id
-        Map<String, Integer> sintomasEncontrados = new HashMap<>();
-
-        // 1. Buscar el ID de cada síntoma
-        for (String nombreSintoma : sintomas) {
-            Integer sintomaId = diagnosticoDAO.obtenerIdSintoma(nombreSintoma);
-            if (sintomaId != null) {
-                sintomasEncontrados.put(nombreSintoma, sintomaId);
-            }
-        }
-
-        if (sintomasEncontrados.isEmpty()) {
-            System.out.println("No se encontraron síntomas válidos en la BD");
-            return false;
-        }
-
-        // 2. Buscar enfermedades relacionadas con cada síntoma
-        Set<Integer> enfermedadesEncontradas = new HashSet<>();
-
-        for (Integer sintomaId : sintomasEncontrados.values()) {
-            List<Integer> enfermedades = diagnosticoDAO.buscarEnfermedadesPorSintoma(sintomaId);
-            enfermedadesEncontradas.addAll(enfermedades);
-        }
-
-        if (enfermedadesEncontradas.isEmpty()) {
-            System.out.println("No se encontraron enfermedades relacionadas");
-            return false;
-        }
-
-        // 3. Insertar diagnóstico en la BD
-        boolean exitoso = true;
-
-        for (Integer enfermedadId : enfermedadesEncontradas) {
-            for (Integer sintomaId : sintomasEncontrados.values()) {
-                boolean resultado = diagnosticoDAO.insertarDiagnostico(pacienteId, sintomaId, enfermedadId);
-                if (!resultado) {
-                    exitoso = false;
-                }
-            }
-        }
-
-        return exitoso;
+    public String getNombre_paciente() {
+        return nombre_paciente;
     }
+
+    public void setNombre_paciente(String nombre_paciente) {
+        this.nombre_paciente = nombre_paciente;
+    }
+
+    public String getEnfermedades() {
+        return enfermedades;
+    }
+
+    public void setEnfermedades(String enfermedades) {
+        this.enfermedades = enfermedades;
+    }
+
+    public String getSintomas() {
+        return sintomas;
+    }
+
+    public void setSintomas(String sintomas) {
+        this.sintomas = sintomas;
+    }
+
+    public String getRecomendaciones() {
+        return recomendaciones;
+    }
+
+    public void setRecomendaciones(String recomendaciones) {
+        this.recomendaciones = recomendaciones;
+    }     
 }
