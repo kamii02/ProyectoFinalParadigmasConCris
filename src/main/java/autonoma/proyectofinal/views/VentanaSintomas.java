@@ -181,6 +181,11 @@ public class VentanaSintomas extends javax.swing.JDialog {
         jLabel5.setText("Id");
 
         jButton1.setText("Ver tabla disgnosticos");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -308,7 +313,8 @@ public class VentanaSintomas extends javax.swing.JDialog {
     }//GEN-LAST:event_btnGenerarPosiblesEnfermedadesMouseClicked
 
     private void btnCrearDiagnosticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearDiagnosticoActionPerformed
-        // TODO add your handling code here:
+
+
     }//GEN-LAST:event_btnCrearDiagnosticoActionPerformed
 
     private void btnCrearDiagnosticoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearDiagnosticoMouseClicked
@@ -355,6 +361,13 @@ public class VentanaSintomas extends javax.swing.JDialog {
     private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
         txtId.setText("");
     }//GEN-LAST:event_txtIdActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        VentanaDiagnostico ventanadiagnostico = new VentanaDiagnostico(null, true);
+        ventanadiagnostico.setLocationRelativeTo(null);
+        this.dispose();
+        ventanadiagnostico.setVisible(true);
+    }//GEN-LAST:event_jButton1MouseClicked
     private void generarSintomasCheckBox() {
         SintomasDAO sdao = new SintomasDAO();
         try {
