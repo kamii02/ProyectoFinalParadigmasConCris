@@ -145,7 +145,7 @@ public class VentanaAgregarSintoma extends javax.swing.JFrame {
         try {
             SintomasDAO sintomasDAO = new SintomasDAO();
             if (sintomasDAO.agregarSintoma(nombre)) {
-                JOptionPane.showMessageDialog(this, "Enfermedad agregada a la base de datos exitosamanete :)");
+                JOptionPane.showMessageDialog(this, "Sintoma agregado a la base de datos exitosamanete :)");
             }
         } catch (SQLException e) {
             System.getLogger(SintomasDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, e);

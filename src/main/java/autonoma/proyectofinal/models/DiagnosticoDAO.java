@@ -15,7 +15,6 @@ public class DiagnosticoDAO {
         this.conn = MySQLConnection.getInstance().getConnection();
     }
 
-    // Obtener el ID de un síntoma por su nombre
     public Integer obtenerIdSintoma(String nombreSintoma) throws SQLException {
         String sql = "SELECT sintoma_id FROM Sintomas WHERE nombre_sintoma = ?";
         PreparedStatement ps = null;
@@ -49,7 +48,6 @@ public class DiagnosticoDAO {
         return sintomaId;
     }
 
-    // Buscar enfermedades que tengan un síntoma específico
     public List<Integer> buscarEnfermedadesPorSintoma(Integer sintomaId) throws SQLException {
         String sql = "SELECT enf_enfermedad_id FROM Sintomas_Enfermedades WHERE sin_sintoma_id = ?";
         PreparedStatement ps = null;
